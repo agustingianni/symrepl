@@ -7,7 +7,7 @@ The main use case of this little helper tool is to help vulnerability researcher
 ## Example
 The following example shows the loading of the `XUL` binary and how `symrepl` can be used to inspect the internals of the types used inside the binary.
 
-[![asciicast](https://asciinema.org/a/p5G9M4AFcnPzDrEhuzCSMWtKy.png)](https://asciinema.org/a/p5G9M4AFcnPzDrEhuzCSMWtKy)
+[![asciicast](https://asciinema.org/a/7GMPl01dTpP8rEmREI3lgtriC.png)](https://asciinema.org/a/7GMPl01dTpP8rEmREI3lgtriC)
 
 ## Caveats
 
