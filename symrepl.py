@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 
-import os
-import sys
 import argparse
+import os
 import subprocess
+import sys
 
 from prompt_toolkit import prompt
 from prompt_toolkit.history import FileHistory
@@ -15,9 +15,9 @@ from pygments.formatters import Terminal256Formatter as Formatter
 
 try:
     # macOS: Get the path to lldb's python bindings.
-    developer = subprocess.check_output(["xcode-select", "-p"])
+    developer = subprocess.check_output(['xcode-select', '-p'])
     xcode = os.path.split(developer)[0]
-    bindings = os.path.join(xcode, "SharedFrameworks/LLDB.framework/Resources/Python")
+    bindings = os.path.join(xcode, 'SharedFrameworks', 'LLDB.framework', 'Resources', 'Python')
     sys.path.append(bindings)
     import lldb
 
@@ -62,17 +62,17 @@ def repl_loop(filename):
             lexer=Lexer,
         ))
 
-        if query == "quit":
+        if query == 'quit':
             break
 
         # Query the DB.
         found_types = symrpl.getTypes(query)
         if not len(found_types):
-            print "Could not find any types that match `{}`".format(query)
+            print 'Could not find any types that match `{}`'.format(query)
             continue
 
         # Display each type that matches.
-        print "Found {} types matching `{}`".format(len(found_types), query)
+        print 'Found {} types matching `{}`'.format(len(found_types), query)
         for output in found_types:
             print highlight(output, Lexer(), Formatter())
             print
@@ -95,5 +95,5 @@ def main():
         pass
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()
