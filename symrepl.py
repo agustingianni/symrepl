@@ -2,6 +2,7 @@
 
 import argparse
 import os
+import platform
 import subprocess
 import sys
 
@@ -14,11 +15,30 @@ from pygments.lexers.c_cpp import CppLexer as Lexer
 from pygments.formatters import Terminal256Formatter as Formatter
 
 try:
-    # macOS: Get the path to lldb's python bindings.
-    developer = subprocess.check_output(['xcode-select', '-p'])
-    xcode = os.path.split(developer)[0]
-    bindings = os.path.join(xcode, 'SharedFrameworks', 'LLDB.framework', 'Resources', 'Python')
-    sys.path.append(bindings)
+    if platform.system() == 'Darwin':
+        # macOS: Get the path to lldb's python bindings.
+        developer = subprocess.check_output(['xcode-select', '-p'])
+        xcode = os.path.split(developer)[0]
+        bindings = os.path.join(xcode, 'SharedFrameworks', 'LLDB.framework', 'Resources', 'Python')
+        sys.path.append(bindings)
+    elif platform.system() == 'Linux':
+        # 'lldb --python-path' should spit out the lldb python path, but this broken (?)
+        # on linux. So we'll add it to our path anyways, incase its just my box that its
+        # broken on...
+        lldb_python_path = subprocess.check_output(['lldb', '--python-path']).strip()
+        sys.path.append(lldb_python_path)
+
+        # this is where the shit actually lives on my debian box. Introduces a dep on 'llvm-config'
+        # but also like, works and stuff.
+        llvm_lib_dir = subprocess.check_output(['llvm-config', '--libdir']).strip()
+        llvm_python_path = os.path.join(llvm_lib_dir, 'python2.7', 'site-packages')
+        lldb_python_path = os.path.join(llvm_python_path, 'lldb')
+
+        sys.path.append(llvm_python_path)
+        sys.path.append(lldb_python_path)
+    else:
+        print 'Failed determining platform, attempting to import lldb anyways...'
+
     import lldb
 
 except Exception, e:
