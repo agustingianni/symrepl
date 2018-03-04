@@ -1,17 +1,22 @@
 # symrepl
 
-`symrepl` is a small utility that helps you investigate the type information inside binaries. It uses `lldb` in order to access the symbolic information inside a binary.
+`symrepl` is a small utility that helps you investigate the type information
+inside binaries. It uses `lldb` in order to access the symbolic information
+inside a binary.
 
-The main use case of this little helper tool is to help vulnerability researchers find interesting things to use while exploiting software.
+The main use case of this little helper tool is to help vulnerability
+researchers find interesting things to use while exploiting software.
 
 ## Example
-The following example shows the loading of the `XUL` binary and how `symrepl` can be used to inspect the internals of the types used inside the binary.
+The following example shows the loading of the `XUL` binary and how `symrepl`
+can be used to inspect the internals of the types used inside the binary.
 
 [![asciicast](https://asciinema.org/a/7GMPl01dTpP8rEmREI3lgtriC.png)](https://asciinema.org/a/7GMPl01dTpP8rEmREI3lgtriC)
 
 ## Caveats
 
-The script works only on `macOS` so far because this is the platform I'm currently using. A version that supports `linux` or other operating systems that have `lldb` available may or may not be in the works.
+The script works only on macOS and Linux. On macOS, XCode is required. On
+Linux, `lldb` and `llvm-config` are required.
 
 ## Installation
 
@@ -33,7 +38,8 @@ $ python setup.py install
 ```
 
 ### Dependencies
-All the python requirements will be installed automatically using python's `setuptools`.
+All the python requirements will be installed automatically using python's
+`setuptools`.
 
 - `XCode`
 - `python`
@@ -45,12 +51,13 @@ All the python requirements will be installed automatically using python's `setu
 Execute `symrepl` with `-h` to get help:
 
 ```
-$ symrepl -h                                                                                                      usage: symrepl [-h] [-f FILENAME]
+$ symrepl -h
+usage: symrepl.py [-h] [-f FILENAME]
 
 Symbol REPL.
 
 optional arguments:
   -h, --help            show this help message and exit
   -f FILENAME, --file FILENAME
-                        Path to the file with symbol.
+                        Path to the file with symbols.
 ```
