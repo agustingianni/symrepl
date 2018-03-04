@@ -101,7 +101,7 @@ def repl_loop(filename):
 def main():
     parser = argparse.ArgumentParser(description='Symbol REPL.')
     parser.add_argument('-f', '--file', dest='filename',
-                        action='store', help='Path to the file with symbol.')
+                        action='store', help='Path to the file with symbols.')
 
     args = parser.parse_args()
     if not args.filename:
